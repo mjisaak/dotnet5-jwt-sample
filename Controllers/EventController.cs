@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 
-namespace lundk.Controllers
+namespace Mjisaak.Jwt.Sample.Controllers
 {
     [ApiController]
     [Route("[controller]")]
@@ -27,14 +27,15 @@ namespace lundk.Controllers
             return "This is public.";
         }
 
-        [Authorize]
+        [Authorize()]
         [HttpGet("secured")]
         public string GetSecured()
         {
             return $"Hello {User.FindFirstValue(ClaimTypes.GivenName)}. This is a secure content and you are allowed to see it.";
         }
 
-        [HttpGet("token/{registrationCode}")]
+
+        [HttpGet("token/{registrationCode}/email/{email}")]
         public ActionResult<string> GetToken(string registrationCode)
         {
             if (registrationCode.Equals("4711-4711-4711"))
@@ -47,13 +48,13 @@ namespace lundk.Controllers
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                     new Claim("eventId", Guid.NewGuid().ToString()),
                     new Claim(JwtRegisteredClaimNames.FamilyName, "Brandl"),
-                    new Claim(JwtRegisteredClaimNames.GivenName, "Martin")
+                    new Claim(JwtRegisteredClaimNames.GivenName, "Martin"),
                 };
 
                 var token = new JwtSecurityToken(SigningOptions.Issuer,
                     SigningOptions.Issuer,
                     permClaims,
-                    expires: DateTime.Now.AddDays(1),
+                    expires: DateTime.Now.AddMinutes(1),
                     signingCredentials: credentials);
 
                 return Ok(new JwtSecurityTokenHandler().WriteToken(token));

@@ -1,6 +1,6 @@
 using System;
 
-namespace lundk
+namespace Mjisaak.Jwt.Sample
 {
     public class WeatherForecast
     {

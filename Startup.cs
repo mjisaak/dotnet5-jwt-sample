@@ -10,7 +10,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
-namespace lundk
+namespace Mjisaak.Jwt.Sample
 {
     public class Startup
     {
@@ -25,6 +25,7 @@ namespace lundk
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+
                 .AddJwtBearer(options =>
                 {
                     options.TokenValidationParameters = new TokenValidationParameters
@@ -32,6 +33,7 @@ namespace lundk
                         ValidateIssuer = true,
                         ValidateAudience = true,
                         ValidateIssuerSigningKey = true,
+                        ValidateLifetime = true,
                         ValidIssuer = SigningOptions.Issuer,
                         ValidAudience = SigningOptions.Issuer,
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(SigningOptions.Key))
@@ -54,7 +56,7 @@ namespace lundk
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "lundk", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Mjisaak.Jwt.Sample", Version = "v1" });
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     Description = @"JWT Authorization header using the Bearer scheme. \r\n\r\n 
@@ -94,7 +96,7 @@ namespace lundk
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "lundk v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Mjisaak.Jwt.Sample v1"));
             }
 
             app.UseHttpsRedirection();

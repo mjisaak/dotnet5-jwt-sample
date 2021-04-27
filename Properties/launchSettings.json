@@ -17,7 +17,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "lundk": {
+    "Mjisaak.Jwt.Sample": {
       "commandName": "Project",
       "dotnetRunMessages": "true",
       "launchBrowser": true,

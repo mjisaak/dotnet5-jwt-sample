@@ -6,8 +6,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Mjisaak.Jwt.Sample;
 
-namespace lundk
+namespace Mjisaak.Jwt.Sample
 {
     public class Program
     {
